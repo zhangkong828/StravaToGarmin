@@ -36,7 +36,7 @@ namespace StravaToGarmin.Client.Strava.Models
         /// 活动类型 模拟骑行
         /// </summary>
         public string activity_type_display_name { get; set; }
-        public bool @private { get; set; }
+        public bool _private { get; set; }
         public object bike_id { get; set; }
         public object athlete_gear_id { get; set; }
         /// <summary>
@@ -44,7 +44,8 @@ namespace StravaToGarmin.Client.Strava.Models
         /// </summary>
         public string start_date { get; set; }
         /// <summary>
-        /// 开始时间 时间戳 秒  1715758941
+        /// 开始时间 时间戳 秒  1715758941  
+        /// ISO 8601格式
         /// </summary>
         public int start_date_local_raw { get; set; }
         /// <summary>

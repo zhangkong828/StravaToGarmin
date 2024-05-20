@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+using static log4net.Appender.RollingFileAppender;
 
 namespace StravaToGarmin.Client.Common.Extensions
 {
@@ -56,12 +57,23 @@ namespace StravaToGarmin.Client.Common.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="jsonstr"></param>
         /// <returns></returns>
-        public static T JsonDeserializer<T>(this string jsonstr)
+        public static T JsonDeserializer<T>(this string jsonstr, bool isoDateTime = false)
         {
             if (string.IsNullOrEmpty(jsonstr))
             {
                 return default(T);
             }
+
+            if (isoDateTime)
+            {
+                var options = new JsonSerializerOptions
+                {
+                    Converters = { new IsoDateTimeConverter("yyyy-MM-dd'T'HH:mm:sszzz") }
+                };
+
+                return JsonSerializer.Deserialize<T>(jsonstr, options);
+            }
+
             return JsonSerializer.Deserialize<T>(jsonstr);
         }
 
