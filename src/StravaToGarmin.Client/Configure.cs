@@ -31,6 +31,8 @@ namespace StravaToGarmin.Client
                 GarminUsername = GetConfig("GarminUsername");
                 GarminPassword = GetConfig("GarminPassword");
 
+                StravaActivityId = long.TryParse(GetConfig("StravaActivityId"), out long stravaActivityId) ? stravaActivityId : 0;
+                StravaActivityDatetime = DateTime.TryParse(GetConfig("StravaActivityDatetime"), out DateTime stravaActivityDatetime) ? stravaActivityDatetime : DateTime.MinValue;
             }
             catch (Exception ex)
             {
@@ -64,15 +66,26 @@ namespace StravaToGarmin.Client
         }
 
 
+        public void SyncStravaActivity(long activityId, DateTime dateTime)
+        {
+            StravaActivityId = activityId;
+            StravaActivityDatetime = dateTime;
+            FileHelper.SaveKeyValue(configPath, "StravaActivityId", activityId.ToString());
+            FileHelper.SaveKeyValue(configPath, "StravaActivityDatetime", dateTime.ToString());
+        }
+
+
         public string StravaEmail { get; set; }
 
-        public string StravaPassword { get; private set; }
+        public string StravaPassword { get; set; }
 
-        public string GarminUsername { get; private set; }
+        public string GarminUsername { get; set; }
 
-        public string GarminPassword { get; private set; }
+        public string GarminPassword { get; set; }
 
 
+        public long StravaActivityId { get; set; }
 
+        public DateTime StravaActivityDatetime { get; set; }
     }
 }

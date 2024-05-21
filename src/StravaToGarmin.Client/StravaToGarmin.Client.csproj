@@ -13,11 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Garmin\Auth\" />
-    <Folder Include="Garmin\Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="app.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
